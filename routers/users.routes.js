@@ -30,6 +30,8 @@ router.post("/register", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  // TODO: Check the user email if already exist or not
+
   const resultInsert = await addUserToDB(name, email, password);
   if (resultInsert.status == "failed") {
     res.send(resultInsert);
