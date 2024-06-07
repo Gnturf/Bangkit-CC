@@ -16,6 +16,6 @@ app.use(checkAuthToken);
 
 app.use("/users", usersRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', 511, () => {
   console.log(`Server was running at http://localhost:${PORT}`);
 });
