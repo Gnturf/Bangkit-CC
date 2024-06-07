@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  res.send(`Hello ${req.user.id}`);
+  res.send(`Hello ${req.user.name}`);
 });
 
 export default router;
