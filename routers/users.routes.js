@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { addUserToDB, checkUser } from "../services/users.service.js";
+import { addUserToDB, checkUser, ifUserExist} from "../services/users.service.js";
 
 const router = express.Router();
 router.post("/login", async (req, res) => {
