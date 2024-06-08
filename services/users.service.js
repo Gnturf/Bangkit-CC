@@ -7,15 +7,15 @@ export async function isUserAlreadyExist(email, password) {
 
     // Inser data to users table
     const [getUserResult] = await connection.execute(
-    `SELECT COUNT(*) FROM users WHERE email = ? AND password = ?;`,
-      [email, password],
+    `SELECT COUNT(*) count FROM users WHERE email = ?;`,
+      [email],
     );
 
     await connection.commit();
     
     console.log("Transaction successful!");
 
-    if (getUserResult.length != 0) {
+    if (getUserResult[0]["count"] != 0) {
         return {
             status: "failed",
             message: "Account with the same email alrady exist"
