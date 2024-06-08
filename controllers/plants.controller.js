@@ -26,7 +26,7 @@ export const getPlantById = async (req, res) => {
   const connection = await pool.getConnection();
   try {
     const [rows] = await connection.execute(
-      "SELECT * FROM plants WHERE id = UUID_TO_BIN(?, true)",
+      "SELECT BIN_TO_UUID(id, true) id, plant_name, BIN_TO_UUID(soil_type, true) soil_type, image_url FROM plants WHERE id = UUID_TO_BIN(?, true)",
       [req.params.id],
     );
     if (rows.length > 0) {
@@ -36,6 +36,7 @@ export const getPlantById = async (req, res) => {
         data: {
           id: plant.id,
           plant_name: plant.plant_name,
+          soil_type: plant.soil_type,
           image_url: plant.image_url,
         },
       });
