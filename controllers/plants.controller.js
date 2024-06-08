@@ -6,7 +6,7 @@ export const getAllPlants = async (req, res) => {
   const connection = await pool.getConnection();
   try {
     const [rows] = await connection.execute(
-      "SELECT BIN_TO_UUID(id, true) id, plant_name, BIN_TO_UUID(soil_type, true) soil_type, image_url FROM Plants",
+      "SELECT BIN_TO_UUID(id, true) id, plant_name, BIN_TO_UUID(soil_type, true) soil_type, image_url FROM plants",
     );
     const plantData = {};
     rows.forEach((plant) => {
