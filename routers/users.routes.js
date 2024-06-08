@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { addUserToDB, checkUser, ifUserExist} from "../services/users.service.js";
+import { addUserToDB, checkUser, isUserAlreadyExist} from "../services/users.service.js";
 
 const router = express.Router();
 router.post("/login", async (req, res) => {
@@ -41,16 +41,16 @@ router.post("/register", async (req, res) => {
   const password = req.body.password;
 
   // TODO: Check the user email if already exist or not
-  
-
-  const resultIfExist = await ifUserExist(email, password);
-  if (resultIfExist.status == failed) {
-    res.send(resultIfExist);
+  const resultIfExist = await isUserAlreadyExist(email, password);
+  if (resultIfExist.status == "failed") {
+    res.status(400).send(resultIfExist);
+    return;
   }
 
   const resultInsert = await addUserToDB(name, email, password);
   if (resultInsert.status == "failed") {
-    res.send(resultInsert);
+    res.status(500).send(resultInsert);
+    return;
   }
 
   const user = { id: resultInsert["id"], name: name, email: email };

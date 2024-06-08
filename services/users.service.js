@@ -7,7 +7,7 @@ export async function isUserAlreadyExist(email, password) {
 
     // Inser data to users table
     const [getUserResult] = await connection.execute(
-    `SELECT COUNT(*) total_account FROM USERS WHERE email = ? AND password = ?;`,
+    `SELECT COUNT(*) FROM users WHERE email = ? AND password = ?;`,
       [email, password],
     );
 
