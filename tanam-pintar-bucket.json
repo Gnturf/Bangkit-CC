@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "tanam-pintar",
+  "private_key_id": "3b0cfce984bf421affae94dfc32103e84ddf4dd6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDSQQPMYnJiWIFm\nuJWN8vthOgJO428+oKRXFvL4iZNde6h9q1fXww0EezcqCU36ntzCZsjYuk9TZXwd\n6HnScmGYkJYyCjLCVOnvTaSKGB+mIy75PbAQ7AVBC6EmDc2cbtl1LRkqyfnsmfDT\nEcbOhBlN0P6HWfg9xXWMbZ2zUF9HdDaFKBw/23cy53mf4rhxGNxLLFmpVx204Ojt\nQjvvzvEGeYkIsuAc61RnwrFHzkat2shTr0nBebRxwRY3AXomUUISZiIQr9QSGcQY\nNXyj38U10XPGFh8LvThNfGvnsiShAaNHnZOh2gvXZBzZ895G2gZnBpFqEgFQ2Ima\n9O7HwMOnAgMBAAECggEAG89erb+NyqVTRF+A5JwxlNwj5wRdOAbuhdhyvd4QoGpV\nUH4D6fWSOLgFhWlip5YwtAP9Z/FIwcqoHpqb1nKrpw7k1uyTZzHtGWqHK37iXMrF\nkVEQA0T8suxTXeGwgxMEb2POMuMxTBLWkEyHI9TENg9BQ2zqkV0XXcI3/DpSx/QB\nR+1xU0COpocQWDtxRq3jl/hg5JBPHKFXSMzI1IsuoTs8jryIvbjX3pBc8n9V5fyo\nh2tRkl0kaHEuXmYKr+rupzbn3UE1+B2tJn3WE6RH8TYxjoAgRbyCe3QIdLl8VQEp\nvRBkslzrtNjKj29Vvl8Q3UsCsr30w7V+rfJ5ai/qIQKBgQDtjNp6/ZpKeGvB9uJQ\nGPvU13mc842miWyhUp65nfhqAPFCI/Y9C6CCxF3Scb9nh3JFxJgeCiNGRy2EG3uK\nQwjnRwi8dQjjRppvX7Ye2c+m9eaeKOkx57Yu/US+TJatOjs4AqogYg1O9/fZ5p/I\nB6d10qVFRclwLWFU3mWituc+YQKBgQDilXADQXXv2GSgg09cmf6xA+tp2/OO+Xjr\nNVdXdXBPshA/3Zok3mun8QcAgctZbvPT5zRRv45XcFQzP2hQT8uUNyfaSPl2Njj2\na1waVqAwR4DKhNXmz2UEJXRTQl1dqhgJ9DiEsffDoLJQjuR6uWC/Be9kVf8Taj8o\nOzvQSqJvBwKBgAnQzCZQ3FM/bpRxMyDEJ4O/85J8rdm3y/lOhKh+0ojuyQlGmyIi\nnNtKaeYMNTB99EbVvMNg/9wjjMnsqMopwvBrivzeiSN7A16ewdO8hEwN1R2r6xbY\n0DpY1MJYP9GgmlnSIl18L7iXnnIuiWOmjVDdB185Zv1vopnzJpf2ns+BAoGABrl6\npo4VyvV4Hw9mlo/3cBd2sCCX/OFIhmqB2hWhLKxTMSIJhhiXx1cu5wPzHgdd8ycE\ndXyi49NwnEjAdsm3eAGfDCpoROrdC+spw5pYjLZCi0Af/Qagr9vQtPveO35l0j3O\nQ5noiYTGZf+npkDEL0ck0KyAsnnPwAjqAIeGhJcCgYEA7LXx0aEHvZW5sbw8ivA5\nBKQ5aBeAvwggibdEAjDL2nWyyKV9q2x2+rgagfQuvGmH1AImsl0DoGChwgspd7E7\nWPxostepkvBrn2RiEPDAO2LhpaqYuQ86QIxR3Q+3VSYdXp8dZ/CKqsW2ySBF0Gma\nBms+wvjXJ8o+jhNKNs3DMw8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "express-server@tanam-pintar.iam.gserviceaccount.com",
+  "client_id": "110991650994170300415",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/express-server%40tanam-pintar.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
