@@ -4,6 +4,8 @@ import { addUserToDB, checkUser } from "../services/users.service.js";
 
 const router = express.Router();
 router.post("/login", async (req, res) => {
+  try {
+    
   // Get All The Data
   const email = req.body.email;
   const password = req.body.password;
@@ -22,10 +24,18 @@ router.post("/login", async (req, res) => {
         token: accessToken
     }
   });
+  } catch (error) {
+    res.status(400).send({
+      "status": "failed",
+      "message": error.message
+    });
+  }
 });
 
 // User Register    
 router.post("/register", async (req, res) => {
+  try {
+    
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
@@ -50,6 +60,12 @@ router.post("/register", async (req, res) => {
   };
 
   res.send(result);
+  } catch (error) {
+    res.status(400).send({
+      "status": "failed",
+      "message": error.message
+    });
+  }
 });
 
 router.get("/", (req, res) => {
