@@ -26,7 +26,7 @@ export const getPlantById = async (req, res) => {
   const connection = await pool.getConnection();
   try {
     const [rows] = await connection.execute(
-      "SELECT * FROM plants WHERE id = ?",
+      "SELECT * FROM plants WHERE id = UUID_TO_BIN(?, true)",
       [req.params.id],
     );
     if (rows.length > 0) {

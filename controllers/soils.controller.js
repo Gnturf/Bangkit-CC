@@ -32,7 +32,7 @@ export const getSoilById = async (req, res) => {
   try {
     console.log(req.params.id);
     const [rows] = await connection.execute(
-      "SELECT BIN_TO_UUID(id, true) id, soil_name, description, image_url FROM Soils WHERE id = UUID_TO_BIN(?, true)",
+      "SELECT BIN_TO_UUID(id, true) id, soil_name, description, image_url FROM soils WHERE id = UUID_TO_BIN(?, true)",
       [req.params.id],
     );
     if (rows.length > 0) {
