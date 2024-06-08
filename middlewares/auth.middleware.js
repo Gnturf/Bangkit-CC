@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
 
 export const checkAuthToken = (req, res, next) => {
-  const excludedPath = ["/users/login", "/users/register"];
+  const excludedPath = ["/users/login", "/users/register", "/soils/{:id}"];
+
+  console.log(req.path);
 
   if (excludedPath.includes(req.path)) {
     next();

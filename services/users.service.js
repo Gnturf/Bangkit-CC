@@ -7,19 +7,19 @@ export async function isUserAlreadyExist(email, password) {
 
     // Inser data to users table
     const [getUserResult] = await connection.execute(
-    `SELECT COUNT(*) count FROM users WHERE email = ?;`,
+      `SELECT COUNT(*) count FROM users WHERE email = ?;`,
       [email],
     );
 
     await connection.commit();
-    
+
     console.log("Transaction successful!");
 
     if (getUserResult[0]["count"] != 0) {
-        return {
-            status: "failed",
-            message: "Account with the same email alrady exist"
-        };
+      return {
+        status: "failed",
+        message: "Account with the same email alrady exist",
+      };
     }
 
     return {
@@ -40,7 +40,6 @@ export async function isUserAlreadyExist(email, password) {
   }
 }
 
-
 export async function checkUser(email, password) {
   const connection = await pool.getConnection();
   try {
@@ -48,7 +47,7 @@ export async function checkUser(email, password) {
 
     // Inser data to users table
     const [getUserResult] = await connection.execute(
-    `SELECT
+      `SELECT
         BIN_TO_UUID(id, true) id, name, email
     FROM
         users
@@ -60,14 +59,14 @@ export async function checkUser(email, password) {
     );
 
     await connection.commit();
-    
+
     console.log("Transaction successful!");
 
     if (getUserResult.length == 0) {
-        return {
-            status: "failed",
-            message: "No such account was found"
-        };
+      return {
+        status: "failed",
+        message: "No such account was found",
+      };
     }
 
     return {
