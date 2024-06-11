@@ -77,13 +77,16 @@ export const uploadSoil = async (req, res) => {
 
     const soilID = tempStoreSoil.data["id"];
 
+    console.log(`Here`);
+
     // Upload image to bucket
     const uploadResult = await uploadImageToBucket(
-      "tanam-pintar",
+      "tanam-pintar-bucket",
       "soils",
       req.file.path,
       soilID,
     );
+
     if (uploadResult.status == "failed") {
       await deleteTempSoil(soilID);
       res.status(500).send(uploadResult);

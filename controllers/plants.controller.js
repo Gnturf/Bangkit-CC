@@ -72,7 +72,7 @@ export const uploadPlants = async (req, res) => {
 
     // Upload image to bucket
     const uploadResult = await uploadImageToBucket(
-      "tanam-pintar",
+      "tanam-pintar-bucket",
       "soils",
       req.file.path,
       plantID,
