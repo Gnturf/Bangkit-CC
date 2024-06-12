@@ -1,6 +1,10 @@
 import pool from "../configs/db.config.js";
-import { insertTempPlant, updateImageURLTempPlant, deleteTempPlant} from "../services/plants.service.js";
-import {uploadImageToBucket} from '../helpers/uploadImage.helper.js';
+import {
+  insertTempPlant,
+  updateImageURLTempPlant,
+  deleteTempPlant,
+} from "../services/plants.service.js";
+import { uploadImageToBucket } from "../helpers/uploadImage.helper.js";
 
 export const getAllPlants = async (req, res) => {
   const connection = await pool.getConnection();
@@ -8,13 +12,14 @@ export const getAllPlants = async (req, res) => {
     const [rows] = await connection.execute(
       "SELECT BIN_TO_UUID(id, true) id, plant_name, BIN_TO_UUID(soil_type, true) soil_type, image_url FROM plants",
     );
-    const plantData = {};
+    const plantData = [];
     rows.forEach((plant) => {
-      plantData[plant.id] = {
+      plantData.push({
+        id: plant.id,
         plant_name: plant.plant_name,
         soil_type: plant.soil_type,
         image_url: plant.image_url,
-      };
+      });
     });
     res.json({ status: "success", data: plantData });
   } catch (error) {

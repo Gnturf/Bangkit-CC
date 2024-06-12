@@ -13,13 +13,15 @@ export const getAllSoils = async (req, res) => {
     const [rows] = await connection.execute(
       "SELECT BIN_TO_UUID(id, true) id, soil_name, description, image_url FROM soils",
     );
-    const soilData = {};
+    const soilData = [];
     rows.forEach((soil) => {
-      soilData[soil.id] = {
+      soilData.push({
+        id: soil.id,
         soil_name: soil.soil_name,
         description: soil.description,
         image_url: soil.image_url,
-      };
+      });
+      
     });
     res.json({ status: "success", data: soilData });
   } catch (error) {

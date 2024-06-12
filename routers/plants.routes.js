@@ -14,6 +14,6 @@ const upload = multer({
 const router = express.Router();
 router.get("/", getAllPlants);
 router.get("/:id", getPlantById);
-router.post("/upload",  upload.single("image"),uploadPlants);
+router.post("/upload", upload.single("image"), uploadPlants);
 
 export default router;

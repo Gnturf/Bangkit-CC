@@ -2,9 +2,9 @@ import fs from "fs";
 import { Storage } from "@google-cloud/storage";
 
 const storage = new Storage({
-    projectId: "projectname",
-    keyFilename: "./tanam-pintar-bucket.json",
-  });
+  projectId: "projectname",
+  keyFilename: "./tanam-pintar-bucket.json",
+});
 
 export const uploadImageToBucket = async (
   bucketName,
@@ -12,15 +12,12 @@ export const uploadImageToBucket = async (
   imageFile,
   imageName,
 ) => {
-  
   const tempPath = `${imageFile}`;
   try {
-    
     // Uploading Image to Buckets
     const bucket = storage.bucket(bucketName);
     const destFileName = `${folderName}/${imageName}.jpg`;
 
-    
     console.log(tempPath);
 
     await bucket.upload(tempPath, {
@@ -28,7 +25,6 @@ export const uploadImageToBucket = async (
     });
 
     console.log("Here 1");
-
 
     fs.unlinkSync(tempPath);
 
