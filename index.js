@@ -26,6 +26,26 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (adjust as needed)
 });
 
+let model;
+const loadModel = async () => {
+    model = await tf.loadLayersModel('file://./model.json');
+};
+loadModel();
+
+app.post('/predict', multer().none(), async (req, res) => {
+    try {
+        const imageBuffer = Buffer.from(req.body.image, 'base64');
+        let tensor = tf.node.decodeImage(imageBuffer);
+        tensor = tensor.resizeBilinear([150, 150]).expandDims(0).toFloat().div(tf.scalar(255));
+        const prediction = model.predict(tensor);
+        const predictedClass = tf.argMax(prediction, 1);
+        res.json({ prediction: predictedClass.dataSync()[0] });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error processing prediction' });
+    }
+});
+
 app.listen(PORT, "0.0.0.0", 511, () => {
   console.log(`Server was running at http://localhost:${PORT}`);
 });
