@@ -26,6 +26,8 @@ export const getAllSoils = async (req, res) => {
     res.json({ status: "success", data: soilData });
   } catch (error) {
     res.status(500).json({ status: "failed", message: error.message });
+  } finally {
+    connection.release();
   }
 };
 
@@ -53,6 +55,8 @@ export const getSoilById = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ status: "failed", message: error.message });
+  } finally {
+    connection.release();
   }
 };
 
