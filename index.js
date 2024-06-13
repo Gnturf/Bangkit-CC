@@ -29,7 +29,7 @@ const upload = multer({
 
 let model;
 const loadModel = async () => {
-    model = await tf.loadLayersModel('file://./model.json');
+    model = await tf.loadLayersModel('https://storage.googleapis.com/tanam-pintar-bucket/model/model.json');
 };
 loadModel();
 
