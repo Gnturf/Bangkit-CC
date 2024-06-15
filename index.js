@@ -33,7 +33,7 @@ const loadModel = async () => {
 };
 loadModel();
 
-app.post('/predict', multer().none(), async (req, res) => {
+app.post('/predict', upload.single('image'), async (req, res) => {
     try {
         const imageBuffer = Buffer.from(req.body.image, 'base64');
         let tensor = tf.node.decodeImage(imageBuffer);
