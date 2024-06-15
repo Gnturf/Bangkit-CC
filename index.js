@@ -41,6 +41,9 @@ app.post('/predict', upload.single('image'), async (req, res) => {
 
     const imageBuffer = fs.readFileSync(req.file.path);
     let tensor = tf.node.decodeImage(imageBuffer);
+    if (tensor.shape[2] === 4) {
+      tensor = tensor.slice([0, 0, 0], [-1, -1, 3]);
+    }
     tensor = tensor.resizeBilinear([150, 150]).expandDims(0).toFloat().div(tf.scalar(255));
     const prediction = model.predict(tensor);
     const predictedClass = tf.argMax(prediction, 1);
