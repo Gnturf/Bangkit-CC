@@ -34,17 +34,24 @@ const loadModel = async () => {
 loadModel();
 
 app.post('/predict', upload.single('image'), async (req, res) => {
-    try {
-        const imageBuffer = Buffer.from(req.body.image, 'base64');
-        let tensor = tf.node.decodeImage(imageBuffer);
-        tensor = tensor.resizeBilinear([224, 224]).expandDims(0).toFloat().div(tf.scalar(255));
-        const prediction = model.predict(tensor);
-        const predictedClass = tf.argMax(prediction, 1);
-        res.json({ prediction: predictedClass.dataSync()[0] });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error processing prediction' });
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image file uploaded' });
     }
+
+    const imageBuffer = fs.readFileSync(req.file.path);
+    let tensor = tf.node.decodeImage(imageBuffer);
+    tensor = tensor.resizeBilinear([224, 224]).expandDims(0).toFloat().div(tf.scalar(255));
+    const prediction = model.predict(tensor);
+    const predictedClass = tf.argMax(prediction, 1);
+    res.json({ prediction: predictedClass.dataSync()[0] });
+
+    // Clean up the uploaded file
+    fs.unlinkSync(req.file.path);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error processing prediction' });
+  }
 });
 
 app.listen(PORT, "0.0.0.0", 511, () => {
