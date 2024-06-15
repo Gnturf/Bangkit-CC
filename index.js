@@ -7,7 +7,7 @@ import plantsRoutes from "./routers/plants.routes.js";
 import cors from "cors";
 import multer from "multer";
 import fs from "fs";
-import * as tf from '@tensorflow/tfjs-node';
+import tf from '@tensorflow/tfjs-node';
 
 dotenv.config();
 
