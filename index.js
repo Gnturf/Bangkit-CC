@@ -22,58 +22,40 @@ app.use("/users", usersRoutes);
 app.use("/soils", soilsRoutes);
 app.use("/plants", plantsRoutes);
 
-// const upload = multer({
-//   dest: "uploads/", // Temporary directory for uploaded files (optional)
-//   limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (adjust as needed)
-// });
+const upload = multer({
+  dest: "uploads/", // Temporary directory for uploaded files (optional)
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (adjust as needed)
+});
 
-// class L2Regularizer {
-//   constructor(lambda) {
-//     this.lambda = lambda; // Regularization weight
-//   }
+let model;
+const loadModel = async () => {
+    model = await tf.loadLayersModel('https://storage.googleapis.com/tanam-pintar-bucket/model/model.json');
+};
+loadModel();
 
-//   call(weights) {
-//     // Calculate L2 regularization loss for the given weights
-//     return tf.mul(tf.scalar(this.lambda), tf.reduceSum(tf.square(weights)));
-//   }
+app.post('/predict', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image file uploaded' });
+    }
 
-//   static get className() {
-//     return 'L2Regularizer';
-//   }
-// }
+    const imageBuffer = fs.readFileSync(req.file.path);
+    let tensor = tf.node.decodeImage(imageBuffer);
+    if (tensor.shape[2] === 4) {
+      tensor = tensor.slice([0, 0, 0], [-1, -1, 3]);
+    }
+    tensor = tensor.resizeBilinear([150, 150]).expandDims(0).toFloat().div(tf.scalar(255));
+    const prediction = model.predict(tensor);
+    const predictedClass = tf.argMax(prediction, 1);
+    res.json({ prediction: predictedClass.dataSync()[0] });
 
-// // Register the custom L2 regularizer
-// tf.serialization.registerClass(L2Regularizer);
-
-// let model;
-// const loadModel = async () => {
-//     model = await tf.loadLayersModel('https://storage.googleapis.com/tanam-pintar-bucket/model/model.json');
-// };
-// loadModel();
-
-// app.post('/predict', upload.single('image'), async (req, res) => {
-//   try {
-//     if (!req.file) {
-//       return res.status(400).json({ error: 'No image file uploaded' });
-//     }
-
-//     const imageBuffer = fs.readFileSync(req.file.path);
-//     let tensor = tf.node.decodeImage(imageBuffer);
-//     if (tensor.shape[2] === 4) {
-//       tensor = tensor.slice([0, 0, 0], [-1, -1, 3]);
-//     }
-//     tensor = tensor.resizeBilinear([150, 150]).expandDims(0).toFloat().div(tf.scalar(255));
-//     const prediction = model.predict(tensor);
-//     const predictedClass = tf.argMax(prediction, 1);
-//     res.json({ prediction: predictedClass.dataSync()[0] });
-
-//     // Clean up the uploaded file
-//     fs.unlinkSync(req.file.path);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Error processing prediction' });
-//   }
-// });
+    // Clean up the uploaded file
+    fs.unlinkSync(req.file.path);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error processing prediction' });
+  }
+});
 
 app.listen(PORT, "0.0.0.0", 511, () => {
   console.log(`Server was running at http://localhost:${PORT}`);
