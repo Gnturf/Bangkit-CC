@@ -27,8 +27,18 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (adjust as needed)
 });
 
-class CustomL2 extends tf.regularizers.L1L2 {
-  static className = 'L2'; // Required static className property
+// Define and register a custom L2 regularizer
+class CustomL2 extends tf.regularizers.Regularizer {
+  constructor(config) {
+    super();
+    this.l2 = tf.scalar(config.l2);
+  }
+  apply(x) {
+    return tf.tidy(() => tf.mul(this.l2, tf.sum(tf.square(x))));
+  }
+  static get className() {
+    return 'L2';
+  }
 }
 tf.serialization.registerClass(CustomL2);
 
