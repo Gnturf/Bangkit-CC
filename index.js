@@ -27,7 +27,10 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (adjust as needed)
 });
 
-tf.serialization.registerClass(tf.regularizers.l2);
+class CustomL2 extends tf.regularizers.L1L2 {
+  static className = 'L2'; // Required static className property
+}
+tf.serialization.registerClass(CustomL2);
 
 let model;
 const loadModel = async () => {
