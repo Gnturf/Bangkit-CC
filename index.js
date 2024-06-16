@@ -44,7 +44,7 @@ app.post('/predict', upload.single('image'), async (req, res) => {
     if (tensor.shape[2] === 4) {
       tensor = tensor.slice([0, 0, 0], [-1, -1, 3]);
     }
-    tensor = tensor.resizeBilinear([150, 150]).expandDims(0).toFloat().div(tf.scalar(255));
+    tensor = tensor.resizeBilinear([224, 224]).expandDims(0).toFloat().div(tf.scalar(255));
     const prediction = model.predict(tensor);
     const predictedClass = tf.argMax(prediction, 1);
     res.json({ prediction: predictedClass.dataSync()[0] });
