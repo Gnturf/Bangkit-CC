@@ -27,6 +27,23 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB (adjust as needed)
 });
 
+class L2Regularizer {
+  constructor(lambda) {
+    this.lambda = lambda; // Regularization weight
+  }
+
+  call(weights) {
+    // Calculate L2 regularization loss for the given weights
+    return tf.mul(tf.scalar(this.lambda), tf.reduceSum(tf.square(weights)));
+  }
+
+  static get className() {
+    return 'L2Regularizer';
+  }
+}
+
+// Register the custom L2 regularizer
+tf.serialization.registerClass(L2Regularizer);
 
 let model;
 const loadModel = async () => {
